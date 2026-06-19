@@ -155,7 +155,8 @@
             border-left: 3px solid var(--accent);
         }
         .product-item h4 { color: var(--accent); margin-bottom: 5px; }
-        .product-item span { font-size: 0.8rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; }
+        .product-item span { font-size: 0.8rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-right: 5px;}
+        .product-price { font-size: 0.9rem !important; color: var(--accent) !important; background: rgba(0, 255, 204, 0.1) !important; font-weight: bold;}
 
         /* ORDERS & PANELS */
         .order-card {
@@ -189,14 +190,13 @@
         .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;}
     </style>
 
-<meta http-equiv="Content-Security-Policy" content="
-default-src 'self';
-connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com;
-script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com;
-style-src 'self' 'unsafe-inline';
-img-src 'self' data: https:;
-">
-
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com;
+    script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https:;
+    ">
 </head>
 <body>
 
@@ -278,7 +278,8 @@ img-src 'self' data: https:;
         <div id="cashierLogin" class="card">
             <h2>Panel Kasjera - Logowanie</h2>
             <div class="input-group">
-                <label for="password">Hasło (domyślnie 4321):</label>
+                <!-- USUNIĘTO PODPOWIEDŹ Z HASŁA -->
+                <label for="password">Hasło:</label>
                 <input type="password" id="password" placeholder="Wpisz hasło">
             </div>
             <button class="btn btn-full" onclick="loginCashier()">Zaloguj</button>
@@ -314,6 +315,11 @@ img-src 'self' data: https:;
                     <label for="newProduct">Nazwa produktu:</label>
                     <input type="text" id="newProduct" placeholder="np. Cola 500ml">
                 </div>
+                <!-- NOWE POLE: CENA -->
+                <div class="input-group">
+                    <label for="newProductPrice">Cena produktu:</label>
+                    <input type="text" id="newProductPrice" placeholder="np. 3 diax">
+                </div>
                 <div class="input-group">
                     <label for="productCategory">Kategoria:</label>
                     <select id="productCategory"></select>
@@ -346,6 +352,9 @@ img-src 'self' data: https:;
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    // NAPRAWA BŁĘDU .length - Inicjalizacja pustej tablicy przed załadowaniem danych z bazy
+    window.currentProducts = []; 
 
     // ===== NAWIGACJA =====
     window.navigate = function(pageId) {
@@ -396,7 +405,7 @@ img-src 'self' data: https:;
             select.innerHTML = '<option value="">Brak produktów w systemie</option>';
             return;
         }
-        select.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} (${p.category})</option>`).join('');
+        select.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} (${p.category}) - ${p.price || 'brak ceny'}</option>`).join('');
     }
 
     function renderPublicProducts() {
@@ -410,6 +419,7 @@ img-src 'self' data: https:;
             <div class="product-item">
                 <h4>${p.name}</h4>
                 <span>${p.category}</span>
+                ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
             </div>
         `).join('') + '</div>';
     }
@@ -426,6 +436,7 @@ img-src 'self' data: https:;
                 <div>
                     <h4>${p.name}</h4>
                     <span>${p.category}</span>
+                    ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
                 </div>
                 <button class="btn-danger" onclick="deleteProduct('${p.id}')">X</button>
             </div>
@@ -442,10 +453,13 @@ img-src 'self' data: https:;
 
     window.addProduct = async function() {
         const name = document.getElementById('newProduct').value.trim();
+        const price = document.getElementById('newProductPrice').value.trim(); // POBRANIE CENY
         const category = document.getElementById('productCategory').value;
         if(!name) return alert('Wpisz nazwę produktu');
-        await addDoc(collection(db, "products"), { name: name, category: category });
+        // DODANIE CENY DO BAZY
+        await addDoc(collection(db, "products"), { name: name, price: price, category: category });
         document.getElementById('newProduct').value = '';
+        document.getElementById('newProductPrice').value = ''; // CZYSZCZENIE POLA CENY
     }
 
     window.deleteProduct = async function(id) {
@@ -480,7 +494,8 @@ img-src 'self' data: https:;
     window.loginCashier = function() {
         const password = document.getElementById('password').value;
         const msgDiv = document.getElementById('loginMsg');
-        if (password === "4321") {
+        // ZMIANA HASŁA NA TCP_ADMIN
+        if (password === "TCP_ADMIN") {
             document.getElementById('cashierLogin').style.display = 'none';
             document.getElementById('cashierPanel').style.display = 'block';
             listenToOrders();
