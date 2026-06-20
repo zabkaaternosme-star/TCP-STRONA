@@ -9,82 +9,25 @@
             --bg-color: #131322;
             --navbar-bg: #1e1e2e;
             --card-bg: #1a1a2a;
-            --accent: #00ffcc;
-            --accent-hover: #00e6b8;
-            --danger: #ff4757;
+            --accent: #ff4444; /* GŁÓWNY CZERWONY */
+            --accent-hover: #e63939; /* CIEMNIEJSZY CZERWONY PO NAJECHANIU */
+            --danger: #ff9f43; /* POMARAŃCZOWY DLA PRZYCISKÓW USUWANIA */
+            --danger-hover: #e08a30;
             --text-main: #ffffff;
             --text-muted: #8a8a9e;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-        }
+        .navbar { background-color: var(--navbar-bg); border-bottom: 2px solid var(--accent); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(255, 68, 68, 0.2); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); letter-spacing: 1px; cursor: pointer; }
+        .nav-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+        .nav-link { color: var(--text-muted); text-decoration: none; padding: 8px 10px; border-radius: 6px; transition: all 0.3s; cursor: pointer; font-size: 0.85rem; }
+        .nav-link:hover, .nav-link.active { color: var(--accent); background: rgba(255, 68, 68, 0.1); }
 
-        .navbar {
-            background-color: var(--navbar-bg);
-            border-bottom: 2px solid var(--accent);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 8px 10px;
-            border-radius: 6px;
-            transition: all 0.3s;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--accent);
-            background: rgba(0, 255, 204, 0.1);
-        }
-
-        .content-container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-        }
+        .content-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); margin-bottom: 30px; }
 
         h1, h2 { color: var(--accent); margin-bottom: 15px; }
         h3 { color: var(--text-main); margin-bottom: 10px; }
@@ -94,114 +37,42 @@
 
         .input-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; }
-        
-        input[type="text"], input[type="password"], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #333;
-            border-radius: 6px;
-            background-color: var(--navbar-bg);
-            color: var(--text-main);
-            font-size: 1rem;
-        }
+        input[type="text"], input[type="password"], select, textarea { width: 100%; padding: 12px; border: 1px solid #333; border-radius: 6px; background-color: var(--navbar-bg); color: var(--text-main); font-size: 1rem; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            background-color: var(--accent);
-            color: #131322;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
+        .btn { padding: 12px 20px; border: none; border-radius: 6px; background-color: var(--accent); color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
         .btn:hover { background-color: var(--accent-hover); }
         .btn-full { width: 100%; }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-            padding: 8px 12px;
-            font-size: 0.85rem;
-        }
-        .btn-danger:hover { background-color: #e03441; }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--text-muted);
-            color: var(--text-muted);
-        }
+        
+        .btn-danger { background-color: var(--danger); color: #131322; padding: 8px 12px; font-size: 0.85rem; font-weight: bold; }
+        .btn-danger:hover { background-color: var(--danger-hover); }
+        
+        .btn-secondary { background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); }
         .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .product-item, .promo-item {
-            background: var(--navbar-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .product-item, .promo-item { background: var(--navbar-bg); padding: 15px; border-radius: 8px; border-left: 3px solid var(--accent); margin-bottom: 15px;}
         .product-item h4, .promo-item h4 { color: var(--accent); margin-bottom: 5px; }
         .product-item span { font-size: 0.8rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-right: 5px;}
-        .product-price { font-size: 0.9rem !important; color: var(--accent) !important; background: rgba(0, 255, 204, 0.1) !important; font-weight: bold;}
-        
-        .promo-item p { font-size: 0.9rem; margin: 0;}
+        .product-price { font-size: 0.9rem !important; color: var(--accent) !important; background: rgba(255, 68, 68, 0.1) !important; font-weight: bold;}
+        .promo-item p { font-size: 0.9rem; margin: 5px 0 0 0; }
 
-        .order-card {
-            background: var(--navbar-bg);
-            border-left: 4px solid var(--accent);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .order-card { background: var(--navbar-bg); border-left: 4px solid var(--accent); padding: 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         .order-info p { margin: 0; color: var(--text-main); }
 
-        .review-card {
-            background: var(--navbar-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--accent);
-        }
+        .review-card { background: var(--navbar-bg); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-bottom: 2px solid var(--accent); }
         .review-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
         .review-author { color: var(--accent); font-weight: bold; }
         .review-date { color: var(--text-muted); font-size: 0.8rem; }
 
-        .announcement-card {
-            background: var(--navbar-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--danger);
-        }
+        .announcement-card { background: var(--navbar-bg); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
 
         .msg { text-align: center; padding: 10px; border-radius: 6px; margin-top: 15px; display: none; }
-        .success { background: rgba(0, 255, 204, 0.1); color: var(--accent); display: block; }
-        .error { background: rgba(255, 71, 87, 0.1); color: var(--danger); display: block; }
+        .success { background: rgba(255, 68, 68, 0.1); color: var(--accent); display: block; }
+        .error { background: rgba(255, 159, 67, 0.1); color: var(--danger); display: block; }
         .empty-state { text-align: center; color: var(--text-muted); padding: 40px 0; font-style: italic; }
 
-        .hero {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, rgba(0,255,204,0.1) 0%, rgba(26,26,42,0) 100%);
-            border-radius: 12px;
-            border: 1px solid #333;
-        }
+        .hero { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(255, 68, 68, 0.15) 0%, rgba(26,26,42,0) 100%); border-radius: 12px; border: 1px solid #333; }
         .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
         
         .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; flex-wrap: wrap;}
@@ -209,13 +80,7 @@
         .flex-row input { flex: 1; }
     </style>
 
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com;
-    script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' data: blob:;
-    ">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;">
 </head>
 <body>
 
@@ -235,39 +100,33 @@
 
 <div class="content-container">
     
-    <!-- STRONA GŁÓWNA -->
     <div id="page-home" class="page">
         <div class="card hero">
             <h1>Witaj w TCP STORE</h1>
-            <p>Najszybszy system zamówień online w czasie rzeczywistym. Wybierz produkty, złóż zamówienie i odbierz je u kasjera bez wychodzenia z domu!</p>
+            <p>Najszybszy system zamówień online w czasie rzeczywistym.</p>
             <button class="btn" onclick="navigate('order')">Przejdź do zamówień</button>
         </div>
     </div>
 
-    <!-- PRODUKTY -->
     <div id="page-products" class="page" style="display: none;">
         <div class="card">
             <h2>Nasze Produkty</h2>
-            <p>Lista dostępnych produktów aktualizowana na żywo.</p>
             <div id="productsList"><p class="empty-state">Ładowanie produktów...</p></div>
         </div>
     </div>
 
-    <!-- PROMOCJE -->
     <div id="page-promotions" class="page" style="display: none;">
         <div class="card">
             <h2>Obecne Promocje</h2>
-            <p>Sprawdź nasze najnowsze okazje i zniżki!</p>
-            <div id="promotionsList" class="grid"><p class="empty-state">Brak aktualnych promocji.</p></div>
+            <div id="publicPromoList"></div>
         </div>
     </div>
 
-    <!-- ZAMÓW I ODBIERZ -->
     <div id="page-order" class="page" style="display: none;">
         <div class="card">
             <h2>Złóż zamówienie</h2>
             <div class="input-group">
-                <label for="nick">Twój Nick (do odbioru):</label>
+                <label for="nick">Twój Nick:</label>
                 <input type="text" id="nick" placeholder="Wpisz swój nick">
             </div>
             <div class="input-group">
@@ -279,18 +138,16 @@
         </div>
     </div>
 
-    <!-- OGŁOSZENIA -->
     <div id="page-announcements" class="page" style="display: none;">
         <div class="card">
             <h2>Ogłoszenia Sklepowe</h2>
-            <div id="announcementsList"><p class="empty-state">Brak nowych ogłoszeń.</p></div>
+            <div id="publicAnnList"></div>
         </div>
     </div>
 
-    <!-- OPINIE -->
     <div id="page-reviews" class="page" style="display: none;">
         <div class="card">
-            <h2>Zostaw opinię o sklepie</h2>
+            <h2>Zostaw opinię</h2>
             <div class="input-group">
                 <label for="reviewNick">Twój Nick:</label>
                 <input type="text" id="reviewNick" placeholder="Anonim">
@@ -304,17 +161,16 @@
         </div>
         <div class="card">
             <h2>Opinie klientów</h2>
-            <div id="reviewsList"><p class="empty-state">Brak opinii. Bądź pierwszy!</p></div>
+            <div id="reviewsList"><p class="empty-state">Brak opinii.</p></div>
         </div>
     </div>
 
-    <!-- O SKLEPIE -->
     <div id="page-about" class="page" style="display: none;">
         <div class="card">
             <h2>TCP – Sklep Przemysłowo-Spożywczy</h2>
             <p>Witamy w TCP – nowoczesnym sklepie przemysłowo-spożywczym, który łączy szeroki wybór produktów z wygodą i szybkim procesem zakupowym.</p>
             <p>W naszej ofercie znajdziesz artykuły spożywcze, napoje, chemię gospodarczą, produkty przemysłowe oraz codzienne akcesoria niezbędne w każdym domu.</p>
-            <p>Dbamy o wysoką jakość obsługi klienta, przejrzystą organizację sklepu oraz nowoczesne rozwiązania technologiczne. Nasi pracownicy korzystają z zaawansowanego systemu kasowego, który umożliwia sprawną realizację zakupów, bezpieczne logowanie personelu oraz szybkie wystawianie paragonów.</p>
+            <p>Dbamy o wysoką jakość obsługi klienta, przejrzystą organizację sklepu oraz nowoczesne rozwiązania technologiczne.</p>
             <h3>Dlaczego warto wybrać TCP?</h3>
             <ul>
                 <li>szeroki wybór produktów spożywczych i przemysłowych,</li>
@@ -327,10 +183,7 @@
         </div>
     </div>
 
-    <!-- PANEL KASJERA -->
     <div id="page-cashier" class="page" style="display: none;">
-        
-        <!-- LOGOWANIE -->
         <div id="cashierLogin" class="card">
             <h2>Panel Kasjera - Logowanie</h2>
             <div class="input-group">
@@ -341,93 +194,82 @@
             <div id="loginMsg" class="msg"></div>
         </div>
 
-        <!-- ZAWARTOŚĆ PO ZALOGOWANIU -->
         <div id="cashierPanel" class="card" style="display: none;">
             <h2>Panel Administracyjny</h2>
             
             <div class="admin-tabs">
-                <button class="btn btn-secondary" onclick="switchAdminTab('orders')">Zamówienia</button>
-                <button class="btn btn-secondary" onclick="switchAdminTab('manage')">Produkty</button>
-                <button class="btn btn-secondary" onclick="switchAdminTab('admin-promos')">Promocje</button>
-                <button class="btn btn-secondary" onclick="switchAdminTab('admin-ann')">Ogłoszenia</button>
+                <button class="btn btn-secondary" onclick="switchTab('tab-orders')">Zamówienia</button>
+                <button class="btn btn-secondary" onclick="switchTab('tab-products')">Produkty</button>
+                <button class="btn btn-secondary" onclick="switchTab('tab-promos')">Promocje</button>
+                <button class="btn btn-secondary" onclick="switchTab('tab-anns')">Ogłoszenia</button>
             </div>
 
-            <!-- ZAKŁADKA 1: ZAMÓWIENIA -->
-            <div id="admin-orders">
+            <div id="tab-orders">
                 <h3>Aktywne zamówienia</h3>
-                <div id="ordersList">
-                    <p class="empty-state">Brak aktywnych zamówień.</p>
-                </div>
+                <div id="ordersList"><p class="empty-state">Brak zamówień.</p></div>
             </div>
 
-            <!-- ZAKŁADKA 2: ZARZĄDZANIE PRODUKTAMI -->
-            <div id="admin-manage" style="display: none;">
-                <h3>Dodaj nową kategorię</h3>
+            <div id="tab-products" style="display: none;">
+                <h3>Dodaj kategorię</h3>
                 <div class="flex-row">
-                    <input type="text" id="newCategory" placeholder="Nazwa kategorii (np. Napoje)">
+                    <input type="text" id="newCategory" placeholder="Nazwa kategorii">
                     <button class="btn" onclick="addCategory()">Dodaj</button>
                 </div>
-
-                <h3>Dodaj nowy produkt</h3>
+                <h3>Dodaj produkt</h3>
                 <div class="input-group">
-                    <label for="newProduct">Nazwa produktu:</label>
+                    <label>Nazwa produktu:</label>
                     <input type="text" id="newProduct" placeholder="np. Cola 500ml">
                 </div>
                 <div class="input-group">
-                    <label for="newProductPrice">Cena produktu:</label>
+                    <label>Cena:</label>
                     <input type="text" id="newProductPrice" placeholder="np. 3 diax">
                 </div>
                 <div class="input-group">
-                    <label for="productCategory">Kategoria:</label>
+                    <label>Kategoria:</label>
                     <select id="productCategory"></select>
                 </div>
-                <button class="btn btn-full" onclick="addProduct()">Dodaj produkt do bazy</button>
-                
+                <button class="btn btn-full" onclick="addProduct()">Dodaj produkt</button>
                 <h3 style="margin-top: 30px;">Aktualne produkty</h3>
                 <div id="manageList" class="grid"></div>
             </div>
 
-            <!-- ZAKŁADKA 3: PROMOCJE -->
-            <div id="admin-promos" style="display: none;">
+            <div id="tab-promos" style="display: none;">
                 <h3>Dodaj nową promocję</h3>
                 <div class="input-group">
-                    <label for="promoTitle">Tytuł promocji:</label>
-                    <input type="text" id="promoTitle" placeholder="np. Wyprzedaż chemii">
+                    <label>Tytuł promocji:</label>
+                    <input type="text" id="promoTitle" placeholder="np. Taniej o 20%">
                 </div>
                 <div class="input-group">
-                    <label for="promoDesc">Opis promocji:</label>
-                    <textarea id="promoDesc" rows="3" placeholder="Opisz co obejmuje promocja..."></textarea>
+                    <label>Opis promocji:</label>
+                    <textarea id="promoDesc" rows="3" placeholder="Szczegóły promocji..."></textarea>
                 </div>
-                <button class="btn btn-full" onclick="addPromotion()">Dodaj promocję</button>
+                <button class="btn btn-full" onclick="savePromo()">ZAPISZ PROMOCJĘ W BAZIE</button>
                 
-                <h3 style="margin-top: 30px;">Aktualne promocje</h3>
-                <div id="adminPromoList" class="grid"></div>
+                <h3 style="margin-top: 30px;">Lista promocji (kliknij by usunąć)</h3>
+                <div id="adminPromoList"></div>
             </div>
 
-            <!-- ZAKŁADKA 4: OGŁOSZENIA -->
-            <div id="admin-ann" style="display: none;">
-                <h3>Dodaj nowe ogłoszenie</h3>
+            <div id="tab-anns" style="display: none;">
+                <h3>Dodaj ogłoszenie</h3>
                 <div class="input-group">
-                    <label for="annTitle">Tytuł:</label>
+                    <label>Tytuł ogłoszenia:</label>
                     <input type="text" id="annTitle" placeholder="np. Zmiana godzin otwarcia">
                 </div>
                 <div class="input-group">
-                    <label for="annContent">Treść ogłoszenia:</label>
-                    <textarea id="annContent" rows="4" placeholder="Szczegóły ogłoszenia..."></textarea>
+                    <label>Treść ogłoszenia:</label>
+                    <textarea id="annDesc" rows="4" placeholder="Treść..."></textarea>
                 </div>
-                <button class="btn btn-full" onclick="addAnnouncement()">Opublikuj ogłoszenie</button>
+                <button class="btn btn-full" onclick="saveAnn()">ZAPISZ OGŁOSZENIE W BAZIE</button>
 
-                <h3 style="margin-top: 30px;">Wszystkie ogłoszenia</h3>
+                <h3 style="margin-top: 30px;">Lista ogłoszeń (kliknij by usunąć)</h3>
                 <div id="adminAnnList"></div>
             </div>
             
-            <button class="btn btn-danger btn-full" style="margin-top: 20px;" onclick="logoutCashier()">Wyloguj z panelu</button>
+            <button class="btn btn-danger btn-full" style="margin-top: 30px;" onclick="logoutCashier()">Wyloguj z panelu</button>
         </div>
-
     </div>
 </div>
 
-<!-- SKRYPT -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -443,10 +285,8 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     window.currentProducts = []; 
 
-    // ===== NAWIGACJA =====
     window.navigate = function(pageId) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById('page-' + pageId).style.display = 'block';
@@ -456,272 +296,107 @@
     }
     navigate('home');
 
-    // ===== PRODUKTY I KATEGORIE =====
-    let categories = [];
-    
-    onSnapshot(query(collection(db, "categories")), (snapshot) => {
-        categories = []; 
-        snapshot.forEach(doc => categories.push({ id: doc.id, ...doc.data() }));
-        updateCategorySelectors(); 
-        renderManageList(); 
-        renderPublicProducts();
-    });
-
-    onSnapshot(query(collection(db, "products")), (snapshot) => {
-        window.currentProducts = []; 
-        snapshot.forEach(doc => window.currentProducts.push({ id: doc.id, ...doc.data() }));
-        updateProductSelector(); 
-        renderManageList(); 
-        renderPublicProducts();
-    });
-
-    function updateCategorySelectors() {
-        const s = document.getElementById('productCategory');
-        if(s) s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-    }
-
-    function updateProductSelector() {
-        const s = document.getElementById('productSelect');
-        if(!s) return;
-        if(window.currentProducts.length === 0) { s.innerHTML = '<option value="">Brak produktów</option>'; return; }
-        s.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} (${p.category}) - ${p.price || ''}</option>`).join('');
-    }
-
-    function renderPublicProducts() {
-        const l = document.getElementById('productsList'); 
-        if(!l) return;
-        if(window.currentProducts.length === 0) { l.innerHTML = '<p class="empty-state">Brak produktów.</p>'; return; }
-        l.innerHTML = '<div class="grid">' + window.currentProducts.map(p => `
-            <div class="product-item">
-                <h4>${p.name}</h4>
-                <span>${p.category}</span>
-                ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
-            </div>`).join('') + '</div>';
-    }
-
-    function renderManageList() {
-        const l = document.getElementById('manageList'); 
-        if(!l) return;
-        if(window.currentProducts.length === 0) { l.innerHTML = '<p class="empty-state">Brak produktów.</p>'; return; }
-        l.innerHTML = window.currentProducts.map(p => `
-            <div class="product-item" style="display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                    <h4>${p.name}</h4>
-                    <span>${p.category}</span> 
-                    ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
-                </div>
-                <button class="btn-danger" onclick="deleteProduct('${p.id}')">X</button>
-            </div>`).join('');
-    }
-
-    window.addCategory = async function() { 
-        const n = document.getElementById('newCategory').value.trim(); 
-        if(!n) return alert('Wpisz nazwę'); 
-        await addDoc(collection(db, "categories"), { name: n }); 
-        document.getElementById('newCategory').value = ''; 
-    }
-
-    window.addProduct = async function() { 
-        const n = document.getElementById('newProduct').value.trim(); 
-        const p = document.getElementById('newProductPrice').value.trim(); 
-        const c = document.getElementById('productCategory').value; 
-        if(!n) return alert('Wpisz nazwę'); 
-        await addDoc(collection(db, "products"), { name: n, price: p, category: c }); 
-        document.getElementById('newProduct').value = ''; 
-        document.getElementById('newProductPrice').value = ''; 
-    }
-
-    window.deleteProduct = async function(id) { 
-        await deleteDoc(doc(db, "products", id)); 
-    }
-
-    // ===== PROMOCJE =====
-    onSnapshot(query(collection(db, "promotions"), orderBy("createdAt", "desc")), (snapshot) => {
-        const pl = document.getElementById('promotionsList'); 
-        const al = document.getElementById('adminPromoList');
-        let hp = ''; let ha = '';
-        
-        if(snapshot.empty) { 
-            hp = '<p class="empty-state">Brak promocji.</p>'; 
-        } else {
-            snapshot.forEach(doc => {
-                const p = doc.data();
-                hp += `<div class="promo-item"><h4>${p.title}</h4><p>${p.description}</p></div>`;
-                ha += `<div class="promo-item"><h4>${p.title}</h4><p>${p.description}</p><button class="btn-danger" style="margin-top:10px;" onclick="deletePromo('${doc.id}')">Usuń</button></div>`;
-            });
-        }
-        if(pl) pl.innerHTML = hp; 
-        if(al) al.innerHTML = ha;
-    });
-
-    window.addPromotion = async function() {
-        const title = document.getElementById('promoTitle').value.trim();
-        const desc = document.getElementById('promoDesc').value.trim();
-        if(!title || !desc) return alert("Wypełnij tytuł i opis promocji!");
-
-        try {
-            await addDoc(collection(db, "promotions"), {
-                title: title,
-                description: desc,
-                createdAt: serverTimestamp()
-            });
-            document.getElementById('promoTitle').value = '';
-            document.getElementById('promoDesc').value = '';
-            alert("Promocja dodana!");
-        } catch (error) {
-            console.error("Błąd promocji: ", error);
-            alert("Błąd dodawania promocji! Sprawdź konsolę (F12) lub uprawnienia bazy danych.");
-        }
-    }
-
-    window.deletePromo = async function(id) { 
-        await deleteDoc(doc(db, "promotions", id)); 
-    }
-
-    // ===== OGŁOSZENIA =====
-    onSnapshot(query(collection(db, "announcements"), orderBy("createdAt", "desc")), (snapshot) => {
-        const pl = document.getElementById('announcementsList'); 
-        const al = document.getElementById('adminAnnList');
-        let hp = ''; let ha = '';
-        
-        if(snapshot.empty) { 
-            hp = '<p class="empty-state">Brak ogłoszeń.</p>'; 
-        } else {
-            snapshot.forEach(doc => {
-                const a = doc.data(); 
-                let t = "Teraz"; 
-                if(a.createdAt) t = a.createdAt.toDate().toLocaleString('pl-PL');
-                
-                hp += `<div class="announcement-card"><h3 style="margin-bottom:5px; color: var(--danger);">${a.title}</h3><p style="margin:0;">${a.content}</p><small style="color:var(--text-muted); margin-top:10px; display:block;">${t}</small></div>`;
-                ha += `<div class="announcement-card"><h3 style="margin-bottom:5px; color: var(--danger);">${a.title}</h3><p style="margin:0 0 10px 0;">${a.content}</p><button class="btn-danger" onclick="deleteAnnouncement('${doc.id}')">Usuń ogłoszenie</button></div>`;
-            });
-        }
-        if(pl) pl.innerHTML = hp; 
-        if(al) al.innerHTML = ha;
-    });
-
-    window.addAnnouncement = async function() { 
-        const t = document.getElementById('annTitle').value.trim(); 
-        const c = document.getElementById('annContent').value.trim(); 
-        if(!t || !c) return alert("Wypełnij tytuł i treść!"); 
-        
-        try {
-            await addDoc(collection(db, "announcements"), { title: t, content: c, createdAt: serverTimestamp() }); 
-            document.getElementById('annTitle').value = ''; 
-            document.getElementById('annContent').value = '';
-            alert("Ogłoszenie dodane!");
-        } catch (error) {
-            console.error("Błąd ogłoszenia: ", error);
-            alert("Błąd dodawania ogłoszenia! Sprawdź konsolę (F12) lub uprawnienia bazy danych.");
-        }
-    }
-
-    window.deleteAnnouncement = async function(id) { 
-        await deleteDoc(doc(db, "announcements", id)); 
-    }
-
-    // ===== OPINIE =====
-    onSnapshot(query(collection(db, "reviews"), orderBy("createdAt", "desc")), (snapshot) => {
-        const l = document.getElementById('reviewsList'); 
-        if(!l) return;
-        if(snapshot.empty) { l.innerHTML = '<p class="empty-state">Brak opinii.</p>'; return; }
-        
-        let h = ''; 
-        snapshot.forEach(doc => { 
-            const r = doc.data(); 
-            let t = ""; 
-            if(r.createdAt) t = r.createdAt.toDate().toLocaleString('pl-PL'); 
-            h += `<div class="review-card"><div class="review-header"><span class="review-author">${r.nick || 'Anonim'}</span><span class="review-date">${t}</span></div><p style="margin:0; color: var(--text-main);">${r.text}</p></div>`; 
-        }); 
-        l.innerHTML = h;
-    });
-
-    window.addReview = async function() { 
-        const n = document.getElementById('reviewNick').value.trim(); 
-        const t = document.getElementById('reviewText').value.trim(); 
-        const m = document.getElementById('reviewMsg'); 
-        if(!t) return alert("Wpisz opinię!"); 
-        
-        try {
-            await addDoc(collection(db, "reviews"), { nick: n || "Anonim", text: t, createdAt: serverTimestamp() }); 
-            document.getElementById('reviewNick').value = ''; 
-            document.getElementById('reviewText').value = ''; 
-            showMessage(m, "Dziękujemy za opinię!", false); 
-        } catch (error) {
-            console.error("Błąd opinii: ", error);
-            alert("Błąd dodawania opinii! Sprawdź konsolę (F12) lub uprawnienia bazy danych.");
-        }
-    }
-
-    // ===== ZAMÓWIENIA =====
-    window.placeOrder = async function() { 
-        const n = document.getElementById('nick').value.trim(); 
-        const p = document.getElementById('productSelect').value; 
-        const m = document.getElementById('userMsg'); 
-        if (!n || !p) { showMessage(m, "Wypełnij pola!", true); return; } 
-        try { 
-            await addDoc(collection(db, "orders"), { nick: n, product: p, createdAt: serverTimestamp() }); 
-            showMessage(m, "Zamówienie złożone!", false); 
-            document.getElementById('nick').value = ''; 
-        } catch (e) { showMessage(m, "Błąd.", true); } 
-    }
-
-    // ===== LOGOWANIE KASJERA =====
-    window.loginCashier = function() { 
-        const p = document.getElementById('password').value; 
-        const m = document.getElementById('loginMsg'); 
-        if (p === "TCP_ADMIN") { 
-            document.getElementById('cashierLogin').style.display = 'none'; 
-            document.getElementById('cashierPanel').style.display = 'block'; 
-            listenToOrders(); 
-        } else { showMessage(m, "Błędne hasło!", true); } 
-    }
-
-    window.logoutCashier = function() { 
-        document.getElementById('cashierPanel').style.display = 'none'; 
-        document.getElementById('cashierLogin').style.display = 'block'; 
-        document.getElementById('password').value = ''; 
-    }
-    
-    // PRZEŁĄCZANIE ZAKŁADEK W PANELU
-    window.switchAdminTab = function(tab) { 
-        const tabs = ['orders', 'manage', 'admin-promos', 'admin-ann'];
-        tabs.forEach(t => { 
-            const e = document.getElementById('admin-' + t); 
-            if(e) e.style.display = (t === tab) ? 'block' : 'none'; 
-        }); 
-    }
-
-    let ordersListener = null;
-    function listenToOrders() {
-        const ol = document.getElementById('ordersList'); 
-        const q = query(collection(db, "orders"), orderBy("createdAt", "asc"));
-        if(ordersListener) ordersListener();
-        
-        ordersListener = onSnapshot(q, (qs) => {
-            if (qs.empty) { ol.innerHTML = '<p class="empty-state">Brak zamówień.</p>'; return; } 
-            ol.innerHTML = '';
-            qs.forEach((d) => { 
-                const o = d.data(); 
-                let ts = "Teraz"; 
-                if (o.createdAt) ts = o.createdAt.toDate().toLocaleTimeString('pl-PL'); 
-                const c = document.createElement('div'); 
-                c.className = 'order-card'; 
-                c.innerHTML = `<div class="order-info"><h3 style="color:var(--accent);">${o.product}</h3><p><strong>Klient:</strong> ${o.nick} | <strong>Godzina:</strong> ${ts}</p></div><button class="btn-danger" onclick="completeOrder('${d.id}')">Zrealizuj</button>`; 
-                ol.appendChild(c); 
-            });
+    window.switchTab = function(tabId) {
+        const tabs = ['tab-orders', 'tab-products', 'tab-promos', 'tab-anns'];
+        tabs.forEach(t => {
+            document.getElementById(t).style.display = (t === tabId) ? 'block' : 'none';
         });
     }
 
-    window.completeOrder = async function(id) { 
-        await deleteDoc(doc(db, "orders", id)); 
+    // --- PROMOCJE ---
+    onSnapshot(collection(db, "promos"), (snapshot) => {
+        let publicHtml = '<p class="empty-state">Brak promocji.</p>';
+        let adminHtml = '<p class="empty-state">Brak promocji.</p>';
+        if (!snapshot.empty) {
+            publicHtml = ''; adminHtml = '';
+            snapshot.forEach((d) => {
+                const data = d.data();
+                publicHtml += `<div class="promo-item"><h4>${data.title}</h4><p>${data.desc}</p></div>`;
+                adminHtml += `<div class="promo-item" style="cursor: pointer;" onclick="deleteItem('promos', '${d.id}')"><h4 style="color: var(--danger);">${data.title} (Kliknij by usunąć)</h4><p>${data.desc}</p></div>`;
+            });
+        }
+        document.getElementById('publicPromoList').innerHTML = publicHtml;
+        document.getElementById('adminPromoList').innerHTML = adminHtml;
+    });
+
+    window.savePromo = async function() {
+        const title = document.getElementById('promoTitle').value.trim();
+        const desc = document.getElementById('promoDesc').value.trim();
+        if (!title || !desc) return alert("Wypełnij tytuł i opis promocji!");
+        try {
+            await addDoc(collection(db, "promos"), { title: title, desc: desc, createdAt: serverTimestamp() });
+            document.getElementById('promoTitle').value = ''; document.getElementById('promoDesc').value = '';
+            alert("SUKCES! Promocja dodana do bazy.");
+        } catch (error) { console.error(error); alert("BŁĄD BAZY: " + error.message); }
+    };
+
+    // --- OGŁOSZENIA ---
+    onSnapshot(collection(db, "announcements"), (snapshot) => {
+        let publicHtml = '<p class="empty-state">Brak ogłoszeń.</p>';
+        let adminHtml = '<p class="empty-state">Brak ogłoszeń.</p>';
+        if (!snapshot.empty) {
+            publicHtml = ''; adminHtml = '';
+            snapshot.forEach((d) => {
+                const data = d.data();
+                let czas = ""; if(data.createdAt) czas = data.createdAt.toDate().toLocaleString('pl-PL');
+                publicHtml += `<div class="announcement-card"><h3 style="margin-bottom:5px; color: var(--accent);">${data.title}</h3><p style="margin:0;">${data.desc}</p><small style="color:var(--text-muted); margin-top:10px; display:block;">Dodano: ${czas}</small></div>`;
+                adminHtml += `<div class="announcement-card" style="cursor: pointer;" onclick="deleteItem('announcements', '${d.id}')"><h3 style="margin-bottom:5px; color: var(--danger);">${data.title} (Kliknij by usunąć)</h3><p style="margin:0;">${data.desc}</p></div>`;
+            });
+        }
+        document.getElementById('publicAnnList').innerHTML = publicHtml;
+        document.getElementById('adminAnnList').innerHTML = adminHtml;
+    });
+
+    window.saveAnn = async function() {
+        const title = document.getElementById('annTitle').value.trim();
+        const desc = document.getElementById('annDesc').value.trim();
+        if (!title || !desc) return alert("Wypełnij tytuł i treść ogłoszenia!");
+        try {
+            await addDoc(collection(db, "announcements"), { title: title, desc: desc, createdAt: serverTimestamp() });
+            document.getElementById('annTitle').value = ''; document.getElementById('annDesc').value = '';
+            alert("SUKCES! Ogłoszenie dodane do bazy.");
+        } catch (error) { console.error(error); alert("BŁĄD BAZY: " + error.message); }
+    };
+
+    window.deleteItem = async function(collectionName, docId) {
+        if (confirm("Na pewno chcesz to usunąć?")) {
+            try { await deleteDoc(doc(db, collectionName, docId)); } catch (error) { alert("Błąd usuwania: " + error.message); }
+        }
+    };
+
+    // --- PRODUKTY ---
+    let categories = [];
+    onSnapshot(query(collection(db, "categories")), (s) => { categories = []; s.forEach(d => categories.push({ id: d.id, ...d.data() })); updateCategorySelectors(); renderManageList(); renderPublicProducts(); });
+    onSnapshot(query(collection(db, "products")), (s) => { window.currentProducts = []; s.forEach(d => window.currentProducts.push({ id: d.id, ...d.data() })); updateProductSelector(); renderManageList(); renderPublicProducts(); });
+
+    function updateCategorySelectors() { const s = document.getElementById('productCategory'); if(s) s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join(''); }
+    function updateProductSelector() { const s = document.getElementById('productSelect'); if(!s) return; if(window.currentProducts.length === 0) { s.innerHTML = '<option value="">Brak</option>'; return; } s.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} - ${p.price || ''}</option>`).join(''); }
+    
+    function renderPublicProducts() { const l = document.getElementById('productsList'); if(!l) return; if(window.currentProducts.length === 0) { l.innerHTML = '<p class="empty-state">Brak.</p>'; return; } l.innerHTML = '<div class="grid">' + window.currentProducts.map(p => `<div class="product-item"><h4>${p.name}</h4><span>${p.category}</span> ${p.price ? `<span class="product-price">${p.price}</span>` : ''}</div>`).join('') + '</div>'; }
+    function renderManageList() { const l = document.getElementById('manageList'); if(!l) return; if(window.currentProducts.length === 0) { l.innerHTML = '<p class="empty-state">Brak.</p>'; return; } l.innerHTML = window.currentProducts.map(p => `<div class="product-item" style="display:flex; justify-content:space-between; align-items:center;"><div><h4>${p.name}</h4><span>${p.category}</span> ${p.price ? `<span class="product-price">${p.price}</span>` : ''}</div><button class="btn-danger" onclick="deleteItem('products', '${p.id}')">X</button></div>`).join(''); }
+
+    window.addCategory = async function() { const n = document.getElementById('newCategory').value.trim(); if(!n) return alert('Wpisz nazwę'); try { await addDoc(collection(db, "categories"), { name: n }); document.getElementById('newCategory').value = ''; } catch(e) { alert("Błąd: "+e.message); } }
+    window.addProduct = async function() { const n = document.getElementById('newProduct').value.trim(); const p = document.getElementById('newProductPrice').value.trim(); const c = document.getElementById('productCategory').value; if(!n) return alert('Wpisz nazwę'); try { await addDoc(collection(db, "products"), { name: n, price: p, category: c }); document.getElementById('newProduct').value = ''; document.getElementById('newProductPrice').value = ''; } catch(e) { alert("Błąd: "+e.message); } }
+
+    // --- OPINIE ---
+    onSnapshot(collection(db, "reviews"), (snapshot) => { const l = document.getElementById('reviewsList'); if(!l) return; if(snapshot.empty) { l.innerHTML = '<p class="empty-state">Brak opinii.</p>'; return; } let h = ''; snapshot.forEach(doc => { const r = doc.data(); let t = ""; if(r.createdAt) t = r.createdAt.toDate().toLocaleString('pl-PL'); h += `<div class="review-card"><div class="review-header"><span class="review-author">${r.nick || 'Anonim'}</span><span class="review-date">${t}</span></div><p style="margin:0; color: var(--text-main);">${r.text}</p></div>`; }); l.innerHTML = h; });
+    window.addReview = async function() { const n = document.getElementById('reviewNick').value.trim(); const t = document.getElementById('reviewText').value.trim(); const m = document.getElementById('reviewMsg'); if(!t) return alert("Wpisz opinię!"); try { await addDoc(collection(db, "reviews"), { nick: n || "Anonim", text: t, createdAt: serverTimestamp() }); document.getElementById('reviewNick').value = ''; document.getElementById('reviewText').value = ''; showMessage(m, "Dziękujemy!", false); } catch(e) { alert("Błąd: "+e.message); } }
+
+    // --- ZAMÓWIENIA ---
+    window.placeOrder = async function() { const n = document.getElementById('nick').value.trim(); const p = document.getElementById('productSelect').value; const m = document.getElementById('userMsg'); if (!n || !p) { showMessage(m, "Wypełnij pola!", true); return; } try { await addDoc(collection(db, "orders"), { nick: n, product: p, createdAt: serverTimestamp() }); showMessage(m, "Zamówienie złożone!", false); document.getElementById('nick').value = ''; } catch (e) { showMessage(m, "Błąd: "+e.message, true); } }
+
+    let ordersListener = null;
+    function listenToOrders() {
+        const ol = document.getElementById('ordersList'); const q = query(collection(db, "orders"), orderBy("createdAt", "asc"));
+        if(ordersListener) ordersListener();
+        ordersListener = onSnapshot(q, (qs) => { if (qs.empty) { ol.innerHTML = '<p class="empty-state">Brak zamówień.</p>'; return; } ol.innerHTML = ''; qs.forEach((d) => { const o = d.data(); let ts = "Teraz"; if (o.createdAt) ts = o.createdAt.toDate().toLocaleTimeString('pl-PL'); const c = document.createElement('div'); c.className = 'order-card'; c.innerHTML = `<div class="order-info"><h3 style="color:var(--accent);">${o.product}</h3><p><strong>Klient:</strong> ${o.nick} | <strong>Godzina:</strong> ${ts}</p></div><button class="btn-danger" onclick="deleteItem('orders', '${d.id}')">Zrealizuj</button>`; ol.appendChild(c); }); });
     }
 
-    function showMessage(el, txt, err) { 
-        el.textContent = txt; 
-        el.className = err ? 'msg error' : 'msg success'; 
-        setTimeout(() => el.className = 'msg', 4000); 
-    }
+    // --- LOGOWANIE ---
+    window.loginCashier = function() { const p = document.getElementById('password').value; const m = document.getElementById('loginMsg'); if (p === "TCP_ADMIN") { document.getElementById('cashierLogin').style.display = 'none'; document.getElementById('cashierPanel').style.display = 'block'; listenToOrders(); } else { showMessage(m, "Błędne hasło!", true); } }
+    window.logoutCashier = function() { document.getElementById('cashierPanel').style.display = 'none'; document.getElementById('cashierLogin').style.display = 'block'; document.getElementById('password').value = ''; }
+
+    function showMessage(el, txt, err) { el.textContent = txt; el.className = err ? 'msg error' : 'msg success'; setTimeout(() => el.className = 'msg', 4000); }
 </script>
 
 </body>
