@@ -29,7 +29,6 @@
             min-height: 100vh;
         }
 
-        /* NAVBAR */
         .navbar {
             background-color: var(--navbar-bg);
             border-bottom: 2px solid var(--accent);
@@ -53,18 +52,19 @@
 
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .nav-link {
             color: var(--text-muted);
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
             transition: all 0.3s;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -72,9 +72,8 @@
             background: rgba(0, 255, 204, 0.1);
         }
 
-        /* CONTENT */
         .content-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
             padding: 0 20px;
         }
@@ -90,8 +89,9 @@
         h1, h2 { color: var(--accent); margin-bottom: 15px; }
         h3 { color: var(--text-main); margin-bottom: 10px; }
         p { line-height: 1.6; color: var(--text-muted); margin-bottom: 15px; }
+        ul { color: var(--text-muted); margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 5px; }
 
-        /* FORMS */
         .input-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; }
         
@@ -104,6 +104,8 @@
             color: var(--text-main);
             font-size: 1rem;
         }
+
+        input[type="file"] { color: var(--text-muted); margin-top: 5px; }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
@@ -141,24 +143,25 @@
         }
         .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* GRID FOR PRODUCTS */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
 
-        .product-item {
+        .product-item, .promo-item {
             background: var(--navbar-bg);
             padding: 15px;
             border-radius: 8px;
             border-left: 3px solid var(--accent);
         }
-        .product-item h4 { color: var(--accent); margin-bottom: 5px; }
+        .product-item h4, .promo-item h4 { color: var(--accent); margin-bottom: 5px; }
         .product-item span { font-size: 0.8rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-right: 5px;}
         .product-price { font-size: 0.9rem !important; color: var(--accent) !important; background: rgba(0, 255, 204, 0.1) !important; font-weight: bold;}
+        
+        .promo-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;}
+        .promo-item p { font-size: 0.9rem; margin: 0;}
 
-        /* ORDERS & PANELS */
         .order-card {
             background: var(--navbar-bg);
             border-left: 4px solid var(--accent);
@@ -171,12 +174,30 @@
         }
         .order-info p { margin: 0; color: var(--text-main); }
 
+        .review-card {
+            background: var(--navbar-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .review-author { color: var(--accent); font-weight: bold; }
+        .review-date { color: var(--text-muted); font-size: 0.8rem; }
+
+        .announcement-card {
+            background: var(--navbar-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--danger);
+        }
+
         .msg { text-align: center; padding: 10px; border-radius: 6px; margin-top: 15px; display: none; }
         .success { background: rgba(0, 255, 204, 0.1); color: var(--accent); display: block; }
         .error { background: rgba(255, 71, 87, 0.1); color: var(--danger); display: block; }
         .empty-state { text-align: center; color: var(--text-muted); padding: 40px 0; font-style: italic; }
 
-        /* HERO */
         .hero {
             text-align: center;
             padding: 40px 20px;
@@ -186,16 +207,19 @@
         }
         .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
         
-        /* ADMIN PANEL TABS */
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;}
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; flex-wrap: wrap;}
+
+        .flex-row { display: flex; gap: 10px; margin-bottom: 30px;}
+        .flex-row input { flex: 1; }
     </style>
 
+    <!-- ZAKTUALIZOWANY CSP: DODANO FIREBASE STORAGE -->
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com;
+    connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://www.gstatic.com https://firebasestorage.googleapis.com;
     script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' data: https:;
+    img-src 'self' data: https: https://firebasestorage.googleapis.com;
     ">
 </head>
 <body>
@@ -203,18 +227,19 @@
 <nav class="navbar">
     <div class="logo" onclick="navigate('home')">TCP STORE</div>
     <div class="nav-links">
-        <a class="nav-link" data-page="home" onclick="navigate('home')">Strona Główna</a>
+        <a class="nav-link" data-page="home" onclick="navigate('home')">Główna</a>
         <a class="nav-link" data-page="products" onclick="navigate('products')">Produkty</a>
-        <a class="nav-link" data-page="order" onclick="navigate('order')">Zamów i odbierz</a>
+        <a class="nav-link" data-page="promotions" onclick="navigate('promotions')">Promocje</a>
+        <a class="nav-link" data-page="order" onclick="navigate('order')">Zamów</a>
+        <a class="nav-link" data-page="announcements" onclick="navigate('announcements')">Ogłoszenia</a>
+        <a class="nav-link" data-page="reviews" onclick="navigate('reviews')">Opinie</a>
         <a class="nav-link" data-page="about" onclick="navigate('about')">O sklepie</a>
-        <a class="nav-link" data-page="rules" onclick="navigate('rules')">Regulamin</a>
-        <a class="nav-link" data-page="cashier" onclick="navigate('cashier')">Panel Kasjera</a>
+        <a class="nav-link" data-page="cashier" onclick="navigate('cashier')">Kasjer</a>
     </div>
 </nav>
 
 <div class="content-container">
     
-    <!-- STRONA GŁÓWNA -->
     <div id="page-home" class="page">
         <div class="card hero">
             <h1>Witaj w TCP STORE</h1>
@@ -223,18 +248,23 @@
         </div>
     </div>
 
-    <!-- PRODUKTY -->
     <div id="page-products" class="page" style="display: none;">
         <div class="card">
             <h2>Nasze Produkty</h2>
-            <p>Lista dostępnych produktów aktualizowana na żywo przez naszych kasjerów.</p>
-            <div id="productsList">
-                <p class="empty-state">Ładowanie produktów...</p>
-            </div>
+            <p>Lista dostępnych produktów aktualizowana na żywo.</p>
+            <div id="productsList"><p class="empty-state">Ładowanie produktów...</p></div>
         </div>
     </div>
 
-    <!-- ZAMÓW I ODBIERZ -->
+    <!-- NOWA ZAKŁADKA: PROMOCJE -->
+    <div id="page-promotions" class="page" style="display: none;">
+        <div class="card">
+            <h2>Obecne Promocje</h2>
+            <p>Sprawdź nasze najnowsze okazje i zniżki!</p>
+            <div id="promotionsList" class="grid"><p class="empty-state">Brak aktualnych promocji.</p></div>
+        </div>
+    </div>
+
     <div id="page-order" class="page" style="display: none;">
         <div class="card">
             <h2>Złóż zamówienie</h2>
@@ -251,25 +281,51 @@
         </div>
     </div>
 
-    <!-- O SKLEPIE -->
-    <div id="page-about" class="page" style="display: none;">
+    <!-- NOWA ZAKŁADKA: OGŁOSZENIA -->
+    <div id="page-announcements" class="page" style="display: none;">
         <div class="card">
-            <h2>O sklepie TCP</h2>
-            <p><strong>TCP STORE</strong> to innowacyjne podejście do handlu detalicznego. Nasz system został zaprojektowany z myślą o maksymalnej efektywności i szybkości obsługi.</p>
-            <p>Dzięki wykorzystaniu bazy danych Firebase w czasie rzeczywistym, Twoje zamówienie trafia do kasjera w ułamku sekundy. Nie potrzebujesz konta, haseł ani logowania – wystarczy, że podasz swój nick, a my zajmiemy się resztą.</p>
-            <p>Naszym celem jest symulacja nowoczesnego systemu POS (Point of Sale), który łączy prostotę z najnowszymi technologiami webowymi.</p>
+            <h2>Ogłoszenia Sklepowe</h2>
+            <div id="announcementsList"><p class="empty-state">Brak nowych ogłoszeń.</p></div>
         </div>
     </div>
 
-    <!-- REGULAMIN -->
-    <div id="page-rules" class="page" style="display: none;">
+    <!-- NOWA ZAKŁADKA: OPINIE -->
+    <div id="page-reviews" class="page" style="display: none;">
         <div class="card">
-            <h2>Regulamin Sklepu TCP</h2>
-            <p><strong>1. Zamówienia:</strong> Każde zamówienie musi zawierać poprawny nick klienta oraz wybrany produkt z dostępnej listy.</p>
-            <p><strong>2. Odbiór:</strong> Zamówienie można odebrać u kasjera po podaniu właściwego nicku. Kasjer ma prawo oznaczyć zamówienie jako zrealizowane, co usuwa je z bazy systemu.</p>
-            <p><strong>3. Konta:</strong> System nie wymaga zakładania kont. Identyfikacja opiera się wyłącznie na podanym nicku podczas składania zamówienia.</p>
-            <p><strong>4. Dostępność:</strong> Produkty dodawane są dynamicznie przez obsługę sklepu. Administracja zastrzega sobie prawo do modyfikacji asortymentu bez wcześniejszego powiadomienia.</p>
-            <p><strong>5. Dane:</strong> System nie przechowuje danych osobowych. W bazie zapisywany jest jedynie podany nick, nazwa produktu oraz czas złożenia zamówienia.</p>
+            <h2>Zostaw opinię o sklepie</h2>
+            <div class="input-group">
+                <label for="reviewNick">Twój Nick:</label>
+                <input type="text" id="reviewNick" placeholder="Anonim">
+            </div>
+            <div class="input-group">
+                <label for="reviewText">Twoja opinia:</label>
+                <textarea id="reviewText" rows="4" placeholder="Co myślisz o naszym sklepie?"></textarea>
+            </div>
+            <button class="btn btn-full" onclick="addReview()">Wyślij opinię</button>
+            <div id="reviewMsg" class="msg"></div>
+        </div>
+        <div class="card">
+            <h2>Opinie klientów</h2>
+            <div id="reviewsList"><p class="empty-state">Brak opinii. Bądź pierwszy!</p></div>
+        </div>
+    </div>
+
+    <!-- ZAKTUALIZOWANY: O SKLEPIE -->
+    <div id="page-about" class="page" style="display: none;">
+        <div class="card">
+            <h2>TCP – Sklep Przemysłowo-Spożywczy</h2>
+            <p>Witamy w TCP – nowoczesnym sklepie przemysłowo-spożywczym, który łączy szeroki wybór produktów z wygodą i szybkim procesem zakupowym.</p>
+            <p>W naszej ofercie znajdziesz artykuły spożywcze, napoje, chemię gospodarczą, produkty przemysłowe oraz codzienne akcesoria niezbędne w każdym domu.</p>
+            <p>Dbamy o wysoką jakość obsługi klienta, przejrzystą organizację sklepu oraz nowoczesne rozwiązania technologiczne. Nasi pracownicy korzystają z zaawansowanego systemu kasowego, który umożliwia sprawną realizację zakupów, bezpieczne logowanie personelu oraz szybkie wystawianie paragonów.</p>
+            <h3>Dlaczego warto wybrać TCP?</h3>
+            <ul>
+                <li>szeroki wybór produktów spożywczych i przemysłowych,</li>
+                <li>szybka i wygodna obsługa przy kasie,</li>
+                <li>bezpieczny system logowania pracowników,</li>
+                <li>przejrzyste ceny i regularne promocje,</li>
+                <li>przyjazna obsługa i komfortowe zakupy.</li>
+            </ul>
+            <p><strong>TCP – TWOJE CENTRUM PRODUKTOW</strong></p>
         </div>
     </div>
 
@@ -278,7 +334,6 @@
         <div id="cashierLogin" class="card">
             <h2>Panel Kasjera - Logowanie</h2>
             <div class="input-group">
-                <!-- USUNIĘTO PODPOWIEDŹ Z HASŁA -->
                 <label for="password">Hasło:</label>
                 <input type="password" id="password" placeholder="Wpisz hasło">
             </div>
@@ -291,31 +346,29 @@
             
             <div class="admin-tabs">
                 <button class="btn btn-secondary" onclick="switchAdminTab('orders')">Zamówienia</button>
-                <button class="btn btn-secondary" onclick="switchAdminTab('manage')">Zarządzanie produktami</button>
+                <button class="btn btn-secondary" onclick="switchAdminTab('manage')">Produkty</button>
+                <button class="btn btn-secondary" onclick="switchAdminTab('admin-promos')">Promocje</button>
+                <button class="btn btn-secondary" onclick="switchAdminTab('admin-ann')">Ogłoszenia</button>
             </div>
 
             <!-- Tab: Zamówienia -->
             <div id="admin-orders">
                 <h3>Aktywne zamówienia</h3>
-                <div id="ordersList">
-                    <p class="empty-state">Brak aktywnych zamówień.</p>
-                </div>
+                <div id="ordersList"><p class="empty-state">Brak aktywnych zamówień.</p></div>
             </div>
 
-            <!-- Tab: Zarządzanie -->
+            <!-- Tab: Zarządzanie Produktami -->
             <div id="admin-manage" style="display: none;">
                 <h3>Dodaj nową kategorię</h3>
-                <div style="display:flex; gap:10px; margin-bottom: 30px;">
+                <div class="flex-row">
                     <input type="text" id="newCategory" placeholder="Nazwa kategorii (np. Napoje)">
                     <button class="btn" onclick="addCategory()">Dodaj</button>
                 </div>
-
                 <h3>Dodaj nowy produkt</h3>
                 <div class="input-group">
                     <label for="newProduct">Nazwa produktu:</label>
                     <input type="text" id="newProduct" placeholder="np. Cola 500ml">
                 </div>
-                <!-- NOWE POLE: CENA -->
                 <div class="input-group">
                     <label for="newProductPrice">Cena produktu:</label>
                     <input type="text" id="newProductPrice" placeholder="np. 3 diax">
@@ -325,9 +378,46 @@
                     <select id="productCategory"></select>
                 </div>
                 <button class="btn btn-full" onclick="addProduct()">Dodaj produkt do bazy</button>
-                
-                <h3 style="margin-top: 30px;">Aktualne produkty i kategorie</h3>
+                <h3 style="margin-top: 30px;">Aktualne produkty</h3>
                 <div id="manageList" class="grid"></div>
+            </div>
+
+            <!-- NOWY Tab: Zarządzanie Promocjami -->
+            <div id="admin-promos" style="display: none;">
+                <h3>Dodaj nową promocję</h3>
+                <div class="input-group">
+                    <label for="promoTitle">Tytuł promocji:</label>
+                    <input type="text" id="promoTitle" placeholder="np. Wyprzedaż chemii">
+                </div>
+                <div class="input-group">
+                    <label for="promoDesc">Opis promocji:</label>
+                    <textarea id="promoDesc" rows="3" placeholder="Opisz co obejmuje promocja..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="promoImage">Zdjęcie promocji:</label>
+                    <input type="file" id="promoImage" accept="image/*">
+                </div>
+                <button class="btn btn-full" onclick="addPromotion()">Dodaj promocję (wgraj zdjęcie)</button>
+                
+                <h3 style="margin-top: 30px;">Aktualne promocje</h3>
+                <div id="adminPromoList" class="grid"></div>
+            </div>
+
+            <!-- NOWY Tab: Zarządzanie Ogłoszeniami -->
+            <div id="admin-ann" style="display: none;">
+                <h3>Dodaj nowe ogłoszenie</h3>
+                <div class="input-group">
+                    <label for="annTitle">Tytuł:</label>
+                    <input type="text" id="annTitle" placeholder="np. Zmiana godzin otwarcia">
+                </div>
+                <div class="input-group">
+                    <label for="annContent">Treść ogłoszenia:</label>
+                    <textarea id="annContent" rows="4" placeholder="Szczegóły ogłoszenia..."></textarea>
+                </div>
+                <button class="btn btn-full" onclick="addAnnouncement()">Opublikuj ogłoszenie</button>
+
+                <h3 style="margin-top: 30px;">Wszystkie ogłoszenia</h3>
+                <div id="adminAnnList"></div>
             </div>
             
             <button class="btn btn-danger btn-full" style="margin-top: 20px;" onclick="logoutCashier()">Wyloguj z panelu</button>
@@ -336,43 +426,40 @@
 
 </div>
 
-<!-- Firebase SDK -->
+<!-- Firebase SDK + DODANY STORAGE -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAXXEeRwAffgnduFTL3Hg6IDQngBj2Kj6k",
       authDomain: "tcp-store-8a5b8.firebaseapp.com",
       projectId: "tcp-store-8a5b8",
-      storageBucket: "tcp-store-8a5b8.appspot.com",
+      storageBucket: "tcp-store-8a5b8.appspot.com", // Używane do zdjęć
       messagingSenderId: "8472491405",
       appId: "1:8472491405:web:76ac9165144b77fdfd39c4"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const storage = getStorage(app); // Inicjalizacja Storage
 
-    // NAPRAWA BŁĘDU .length - Inicjalizacja pustej tablicy przed załadowaniem danych z bazy
     window.currentProducts = []; 
 
     // ===== NAWIGACJA =====
     window.navigate = function(pageId) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById('page-' + pageId).style.display = 'block';
-        
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        document.querySelector(`.nav-link[data-page="${pageId}"]`).classList.add('active');
+        const activeLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+        if(activeLink) activeLink.classList.add('active');
     }
-    // Inicjalizacja na start
     navigate('home');
 
-    // ===== ZARZĄDZANIE PRODUKTAMI I KATEGORIAMI (NASŁUCHIWANIE) =====
+    // ===== PRODUKTY I KATEGORIE =====
     let categories = [];
-    
-    // Nasłuchiwanie kategorii
-    const catQuery = query(collection(db, "categories"));
-    onSnapshot(catQuery, (snapshot) => {
+    onSnapshot(query(collection(db, "categories")), (snapshot) => {
         categories = [];
         snapshot.forEach(doc => categories.push({ id: doc.id, ...doc.data() }));
         updateCategorySelectors();
@@ -380,12 +467,9 @@
         renderPublicProducts();
     });
 
-    // Nasłuchiwanie produktów
-    const prodQuery = query(collection(db, "products"));
-    onSnapshot(prodQuery, (snapshot) => {
-        let products = [];
-        snapshot.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
-        window.currentProducts = products;
+    onSnapshot(query(collection(db, "products")), (snapshot) => {
+        window.currentProducts = [];
+        snapshot.forEach(doc => window.currentProducts.push({ id: doc.id, ...doc.data() }));
         updateProductSelector();
         renderManageList();
         renderPublicProducts();
@@ -393,57 +477,42 @@
 
     function updateCategorySelectors() {
         const adminSelect = document.getElementById('productCategory');
-        if(adminSelect) {
-            adminSelect.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-        }
+        if(adminSelect) adminSelect.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
     }
 
     function updateProductSelector() {
         const select = document.getElementById('productSelect');
         if(!select) return;
-        if(window.currentProducts.length === 0) {
-            select.innerHTML = '<option value="">Brak produktów w systemie</option>';
-            return;
-        }
-        select.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} (${p.category}) - ${p.price || 'brak ceny'}</option>`).join('');
+        if(window.currentProducts.length === 0) { select.innerHTML = '<option value="">Brak produktów</option>'; return; }
+        select.innerHTML = window.currentProducts.map(p => `<option value="${p.name}">${p.name} (${p.category}) - ${p.price || ''}</option>`).join('');
     }
 
     function renderPublicProducts() {
         const list = document.getElementById('productsList');
         if(!list) return;
-        if(window.currentProducts.length === 0) {
-            list.innerHTML = '<p class="empty-state">Brak produktów do wyświetlenia.</p>';
-            return;
-        }
+        if(window.currentProducts.length === 0) { list.innerHTML = '<p class="empty-state">Brak produktów.</p>'; return; }
         list.innerHTML = '<div class="grid">' + window.currentProducts.map(p => `
             <div class="product-item">
                 <h4>${p.name}</h4>
                 <span>${p.category}</span>
                 ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
-            </div>
-        `).join('') + '</div>';
+            </div>`).join('') + '</div>';
     }
 
     function renderManageList() {
         const list = document.getElementById('manageList');
         if(!list) return;
-        if(window.currentProducts.length === 0) {
-            list.innerHTML = '<p class="empty-state">Brak produktów. Dodaj pierwszy produkt.</p>';
-            return;
-        }
+        if(window.currentProducts.length === 0) { list.innerHTML = '<p class="empty-state">Brak produktów.</p>'; return; }
         list.innerHTML = window.currentProducts.map(p => `
             <div class="product-item" style="display:flex; justify-content:space-between; align-items:center;">
                 <div>
                     <h4>${p.name}</h4>
-                    <span>${p.category}</span>
-                    ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
+                    <span>${p.category}</span> ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
                 </div>
                 <button class="btn-danger" onclick="deleteProduct('${p.id}')">X</button>
-            </div>
-        `).join('');
+            </div>`).join('');
     }
 
-    // ===== FUNKCJE KASJERA (DODAWANIE) =====
     window.addCategory = async function() {
         const name = document.getElementById('newCategory').value.trim();
         if(!name) return alert('Wpisz nazwę kategorii');
@@ -453,17 +522,157 @@
 
     window.addProduct = async function() {
         const name = document.getElementById('newProduct').value.trim();
-        const price = document.getElementById('newProductPrice').value.trim(); // POBRANIE CENY
+        const price = document.getElementById('newProductPrice').value.trim();
         const category = document.getElementById('productCategory').value;
         if(!name) return alert('Wpisz nazwę produktu');
-        // DODANIE CENY DO BAZY
         await addDoc(collection(db, "products"), { name: name, price: price, category: category });
         document.getElementById('newProduct').value = '';
-        document.getElementById('newProductPrice').value = ''; // CZYSZCZENIE POLA CENY
+        document.getElementById('newProductPrice').value = '';
     }
 
-    window.deleteProduct = async function(id) {
-        await deleteDoc(doc(db, "products", id));
+    window.deleteProduct = async function(id) { await deleteDoc(doc(db, "products", id)); }
+
+    // ===== PROMOCJE (Z ZDJĘCIAMI) =====
+    onSnapshot(query(collection(db, "promotions"), orderBy("createdAt", "desc")), (snapshot) => {
+        const publicList = document.getElementById('promotionsList');
+        const adminList = document.getElementById('adminPromoList');
+        let htmlPublic = ''; let htmlAdmin = '';
+        
+        if(snapshot.empty) {
+            htmlPublic = '<p class="empty-state">Brak aktualnych promocji.</p>';
+        } else {
+            snapshot.forEach(doc => {
+                const p = doc.data();
+                const card = `
+                    <div class="promo-item">
+                        ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.title}">` : ''}
+                        <h4>${p.title}</h4>
+                        <p>${p.description}</p>
+                    </div>`;
+                htmlPublic += card;
+                htmlAdmin += `<div class="promo-item">
+                    ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.title}">` : ''}
+                    <h4>${p.title}</h4>
+                    <button class="btn-danger" style="margin-top:10px;" onclick="deletePromo('${doc.id}')">Usuń</button>
+                </div>`;
+            });
+        }
+        if(publicList) publicList.innerHTML = htmlPublic;
+        if(adminList) adminList.innerHTML = htmlAdmin;
+    });
+
+    window.addPromotion = async function() {
+        const title = document.getElementById('promoTitle').value.trim();
+        const desc = document.getElementById('promoDesc').value.trim();
+        const file = document.getElementById('promoImage').files[0];
+
+        if(!title || !desc || !file) return alert("Wypełnij wszystkie pola i dodaj zdjęcie!");
+
+        try {
+            // Tworzenie unikalnej nazwy pliku
+            const storageRef = ref(storage, 'promotions/' + Date.now() + '_' + file.name);
+            
+            // Wgrywanie pliku
+            await uploadBytes(storageRef, file);
+            
+            // Pobieranie linku do wgranego zdjęcia
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Zapis do Firestore
+            await addDoc(collection(db, "promotions"), {
+                title: title,
+                description: desc,
+                imageUrl: downloadURL,
+                createdAt: serverTimestamp()
+            });
+
+            // Czyszczenie formularza
+            document.getElementById('promoTitle').value = '';
+            document.getElementById('promoDesc').value = '';
+            document.getElementById('promoImage').value = '';
+            alert("Promocja dodana!");
+        } catch (error) {
+            console.error("Błąd dodawania promocji: ", error);
+            alert("Wystąpił błąd podczas wgrywania zdjęcia.");
+        }
+    }
+
+    window.deletePromo = async function(id) { await deleteDoc(doc(db, "promotions", id)); }
+
+    // ===== OGŁOSZENIA =====
+    onSnapshot(query(collection(db, "announcements"), orderBy("createdAt", "desc")), (snapshot) => {
+        const publicList = document.getElementById('announcementsList');
+        const adminList = document.getElementById('adminAnnList');
+        let htmlPublic = ''; let htmlAdmin = '';
+
+        if(snapshot.empty) {
+            htmlPublic = '<p class="empty-state">Brak nowych ogłoszeń.</p>';
+        } else {
+            snapshot.forEach(doc => {
+                const a = doc.data();
+                let time = "Teraz";
+                if(a.createdAt) time = a.createdAt.toDate().toLocaleString('pl-PL');
+                
+                htmlPublic += `<div class="announcement-card">
+                    <h3 style="margin-bottom:5px; color: var(--danger);">${a.title}</h3>
+                    <p style="margin:0;">${a.content}</p>
+                    <small style="color:var(--text-muted); margin-top:10px; display:block;">Opublikowano: ${time}</small>
+                </div>`;
+                
+                htmlAdmin += `<div class="announcement-card">
+                    <h3 style="margin-bottom:5px; color: var(--danger);">${a.title}</h3>
+                    <p style="margin:0 0 10px 0;">${a.content}</p>
+                    <button class="btn-danger" onclick="deleteAnnouncement('${doc.id}')">Usuń ogłoszenie</button>
+                </div>`;
+            });
+        }
+        if(publicList) publicList.innerHTML = htmlPublic;
+        if(adminList) adminList.innerHTML = htmlAdmin;
+    });
+
+    window.addAnnouncement = async function() {
+        const title = document.getElementById('annTitle').value.trim();
+        const content = document.getElementById('annContent').value.trim();
+        if(!title || !content) return alert("Wypełnij tytuł i treść ogłoszenia.");
+        await addDoc(collection(db, "announcements"), { title, content, createdAt: serverTimestamp() });
+        document.getElementById('annTitle').value = '';
+        document.getElementById('annContent').value = '';
+    }
+
+    window.deleteAnnouncement = async function(id) { await deleteDoc(doc(db, "announcements", id)); }
+
+    // ===== OPINIE =====
+    onSnapshot(query(collection(db, "reviews"), orderBy("createdAt", "desc")), (snapshot) => {
+        const list = document.getElementById('reviewsList');
+        if(!list) return;
+        if(snapshot.empty) { list.innerHTML = '<p class="empty-state">Brak opinii. Bądź pierwszy!</p>'; return; }
+        
+        let html = '';
+        snapshot.forEach(doc => {
+            const r = doc.data();
+            let time = "";
+            if(r.createdAt) time = r.createdAt.toDate().toLocaleString('pl-PL');
+            html += `<div class="review-card">
+                <div class="review-header">
+                    <span class="review-author">${r.nick || 'Anonim'}</span>
+                    <span class="review-date">${time}</span>
+                </div>
+                <p style="margin:0; color: var(--text-main);">${r.text}</p>
+            </div>`;
+        });
+        list.innerHTML = html;
+    });
+
+    window.addReview = async function() {
+        const nick = document.getElementById('reviewNick').value.trim();
+        const text = document.getElementById('reviewText').value.trim();
+        const msgDiv = document.getElementById('reviewMsg');
+        if(!text) return alert("Wpisz treść opinii!");
+        
+        await addDoc(collection(db, "reviews"), { nick: nick || "Anonim", text: text, createdAt: serverTimestamp() });
+        document.getElementById('reviewNick').value = '';
+        document.getElementById('reviewText').value = '';
+        showMessage(msgDiv, "Dziękujemy za opinię!", false);
     }
 
     // ===== ZAMÓWIENIA =====
@@ -471,37 +680,23 @@
         const nick = document.getElementById('nick').value.trim();
         const product = document.getElementById('productSelect').value;
         const msgDiv = document.getElementById('userMsg');
-
-        if (!nick || !product) {
-            showMessage(msgDiv, "Wpisz nick i wybierz produkt!", true);
-            return;
-        }
-
+        if (!nick || !product) { showMessage(msgDiv, "Wpisz nick i wybierz produkt!", true); return; }
         try {
-            await addDoc(collection(db, "orders"), {
-                nick: nick,
-                product: product,
-                createdAt: serverTimestamp()
-            });
-            showMessage(msgDiv, "Zamówienie złożone! Podejdź do kasy po odbiór.", false);
+            await addDoc(collection(db, "orders"), { nick, product, createdAt: serverTimestamp() });
+            showMessage(msgDiv, "Zamówienie złożone!", false);
             document.getElementById('nick').value = '';
-        } catch (e) {
-            showMessage(msgDiv, "Błąd podczas składania zamówienia.", true);
-        }
+        } catch (e) { showMessage(msgDiv, "Błąd zamówienia.", true); }
     }
 
     // ===== LOGOWANIE KASJERA =====
     window.loginCashier = function() {
         const password = document.getElementById('password').value;
         const msgDiv = document.getElementById('loginMsg');
-        // ZMIANA HASŁA NA TCP_ADMIN
         if (password === "TCP_ADMIN") {
             document.getElementById('cashierLogin').style.display = 'none';
             document.getElementById('cashierPanel').style.display = 'block';
             listenToOrders();
-        } else {
-            showMessage(msgDiv, "Błędne hasło!", true);
-        }
+        } else { showMessage(msgDiv, "Błędne hasło!", true); }
     }
 
     window.logoutCashier = function() {
@@ -511,34 +706,26 @@
     }
 
     window.switchAdminTab = function(tab) {
-        document.getElementById('admin-orders').style.display = tab === 'orders' ? 'block' : 'none';
-        document.getElementById('admin-manage').style.display = tab === 'manage' ? 'block' : 'none';
+        const tabs = ['orders', 'manage', 'admin-promos', 'admin-ann'];
+        tabs.forEach(t => {
+            const el = document.getElementById('admin-' + t);
+            if(el) el.style.display = (t === tab) ? 'block' : 'none';
+        });
     }
 
-    // ===== NASŁUCHIWANIE ZAMÓWIEŃ =====
     let ordersListener = null;
     function listenToOrders() {
         const ordersList = document.getElementById('ordersList');
         const q = query(collection(db, "orders"), orderBy("createdAt", "asc"));
-        
-        if(ordersListener) ordersListener(); // wyłącz poprzedni listener
+        if(ordersListener) ordersListener();
         
         ordersListener = onSnapshot(q, (querySnapshot) => {
-            if (querySnapshot.empty) {
-                ordersList.innerHTML = '<p class="empty-state">Brak aktywnych zamówień.</p>';
-                return;
-            }
-
+            if (querySnapshot.empty) { ordersList.innerHTML = '<p class="empty-state">Brak aktywnych zamówień.</p>'; return; }
             ordersList.innerHTML = '';
             querySnapshot.forEach((d) => {
-                const order = d.data();
-                const orderId = d.id;
-                
+                const order = d.data(); const orderId = d.id;
                 let timeString = "Teraz";
-                if (order.createdAt) {
-                    timeString = order.createdAt.toDate().toLocaleTimeString('pl-PL');
-                }
-
+                if (order.createdAt) timeString = order.createdAt.toDate().toLocaleTimeString('pl-PL');
                 const card = document.createElement('div');
                 card.className = 'order-card';
                 card.innerHTML = `
@@ -546,18 +733,14 @@
                         <h3 style="color:var(--accent);">${order.product}</h3>
                         <p><strong>Klient:</strong> ${order.nick} | <strong>Godzina:</strong> ${timeString}</p>
                     </div>
-                    <button class="btn-danger" onclick="completeOrder('${orderId}')">Zrealizuj</button>
-                `;
+                    <button class="btn-danger" onclick="completeOrder('${orderId}')">Zrealizuj</button>`;
                 ordersList.appendChild(card);
             });
         });
     }
 
-    window.completeOrder = async function(orderId) {
-        await deleteDoc(doc(db, "orders", orderId));
-    }
+    window.completeOrder = async function(orderId) { await deleteDoc(doc(db, "orders", orderId)); }
 
-    // ===== HELPER =====
     function showMessage(element, text, isError) {
         element.textContent = text;
         element.className = isError ? 'msg error' : 'msg success';
